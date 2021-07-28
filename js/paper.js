@@ -16,9 +16,13 @@ let scene = new THREE.Scene();
 
 
 // 2.建立相機 Camera 
+//透視相機
 let camera = new THREE.PerspectiveCamera(
   75, window.innerWidth / window.innerHeight, 0.1, 1000
 );
+//正交相機
+
+
 
 // 3.建立渲染器 Renderer
 let renderer = window.WebGLRenderingContext ?
@@ -39,13 +43,24 @@ let texture = new THREE.TextureLoader().load('https://threejs.org/examples/textu
 // 7.建立材質 Material
 let material = new THREE.MeshPhongMaterial({ map: texture });
 
+
+
 // 8.使用以上矩形與材質, 將其實例化成一個方塊
 let cube = new THREE.Mesh(geometry, material);
 
 // 9.將方塊加入場景
 scene.add(cube);
 
+/**********/
 
+const geometryMesh = new THREE.PlaneGeometry(3, 4.248);
+const textureMesh = new THREE.TextureLoader().load('https://i.imgur.com/pPtUIqs.jpg');
+const materialMesh = new THREE.MeshBasicMaterial({ color: 0xffffff, map: textureMesh, side: THREE.DoubleSide });
+const mesh = new THREE.Mesh(geometryMesh, materialMesh);
+scene.add(mesh);
+
+
+/**********/
 //9-2 設定光源
 
 //每個平面平均接受的光源
@@ -54,7 +69,7 @@ let ambientLight = new THREE.AmbientLight('#666666');
 scene.add(ambientLight);
 
 //聚光燈光源範例
-let spoltLight = new THREE.SpotLight(0xFFF000);
+let spoltLight = new THREE.SpotLight(0xFFFFFF);
 
 spoltLight.position.set(3, 3, 3);
 
@@ -64,7 +79,7 @@ scene.add(spoltLight);
 
 //點光源
 let pointLight = new THREE.PointLight({
-  color: '#ccffcc',
+  color: '#FFFFFF',
   distance: 100  // 光線照亮距離
 });
 pointLight.intensity = 5;
@@ -78,6 +93,8 @@ scene.add(pointLight);
 camera.position.x = PARAMS.cameraX;
 camera.position.y = PARAMS.cameraY;
 camera.position.z = PARAMS.cameraZ;
+
+console.log(camera);
 
 //helper
 //軸心
